@@ -6,43 +6,61 @@
 
 
 let city = "oakland"
-function getApi() {
-    const APIkey = "1954d330fe9f2fbee8fe2fbda687fcb7"
-    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIkey}`;
-  
-    fetch(requestUrl)
+function getCity() {
+  let lat = 30.489772
+  let long = -99.771335
+  let requestGeo = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${directAPIkey}`;
+  fetch(requestGeo)
     .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .then(function (data) {
+      console.log(data);
+      let lat = data[0].lat;
+      let long = data[0].lon;
+    })
+  }
+
+  function getWeather() {
+    let lat = 30.489772;
+    let long = -99.771335;
+    var requestUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${onecallAPIkey}`;
+    getCity(lat, long);
+
+    fetch(requestUrl)
+      .then((response) => {
         if (response.ok) {
           return response.json();
-        } else {
-          throw new Error("NETWORK RESPONSE ERROR");
         }
       })
-        .then(function (data) {
-            console.log(data);
-            displayWeather(data);
-        })
-        .catch((error) => console.error("FETCH ERROR:", error));
+      .then(function (data) {
+        console.log(data);
+        displayWeather(data);
+      })
   }
-  
-  getApi();
+
+  getWeather();
 
   function displayWeather(data) {
-    const tempNow = Math.round(data.main.temp);
+    
+    const tempNow = Math.round(data.current.temp);
     const tempNowEl = document.getElementById("tempNow");
     tempNowEl.innerHTML = "Tempurature:" + tempNow;
-    const humidNow = data.main.humidity;
+
+    const humidNow = data.current.humidity;
     const humidNowEl = document.getElementById("humidNow");
     humidNowEl.innerHTML = "Humidity:" + humidNow;
+
     const cityNow = data.name;
     const cityNowEl = document.getElementById("cityNow");
     cityNowEl.innerHTML = cityNow;
-  }   
-  
- 
-  
-  
+  }
+
+
+
+
   // weather icon
   // var iconcode = a.weather[0].icon;
   // var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
-  
