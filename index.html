@@ -1,13 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Simple Weather App - Search for Weather in any US city</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <style src="assets/css/style.css"></style>
 </head>
+
 <body>
+    <header class="container-fluid">
+        <h1 class="row nav justify-content-center bg-warning">US Weather Dashboard</h1>
+    </header>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-sm-3 justify-content-center">
+                <h4 class="justify-content-center"> Search for a US City</h4>
+                <form>
+                    <label for="city">City:</label><br>
+                    <input type="text" id="city" name="city"><br>
+                    <input type="button" value="Search">
+                  </form>
+                <hr>
+                <ul class="previous-cities">
+                    
+                </ul>
+            </aside>
+
+            <div class="col-sm-9">
+                <div class="row">
+                    <h4>Name of city</h4>
+                    <h5>Date</h5>
+                    <h5>Temp:</h5>
+                    <h5>Wind:</h5>
+                    <h5>Humidity:</h5>
+                    <h5>UV Index:</h5>
+                </div>
+                <div class="row justify-content-evenly">
+                    <div class="col-md-2">
+                        <div class="card text-bg-info mb-3">
+                            <div class="card-header">DATE</div>
+                            <div class="card-body">
+                                <div>WEATHER ICON HERE</div>
+                                <p class="card-title">Temp:</p>
+                                <p class="card-text">Wind:</p>
+                                <p class="card-text">Humidity:</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card text-bg-info mb-3">
+                            <div class="card-header">DATE</div>
+                            <div class="card-body">
+                                <div>WEATHER ICON HERE</div>
+                                <p class="card-title">Temp:</p>
+                                <p class="card-text">Wind:</p>
+                                <p class="card-text">Humidity:</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card text-bg-info mb-3">
+                            <div class="card-header">DATE</div>
+                            <div class="card-body">
+                                <div>WEATHER ICON HERE</div>
+                                <p class="card-title">Temp:</p>
+                                <p class="card-text">Wind:</p>
+                                <p class="card-text">Humidity:</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card text-bg-info mb-3">
+                            <div class="card-header">DATE</div>
+                            <div class="card-body">
+                                <div>WEATHER ICON HERE</div>
+                                <p class="card-title">Temp:</p>
+                                <p class="card-text">Wind:</p>
+                                <p class="card-text">Humidity:</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card text-bg-info mb-3">
+                            <div class="card-header">DATE</div>
+                            <div class="card-body">
+                                <div>WEATHER ICON HERE</div>
+                                <p class="card-title">Temp:</p>
+                                <p class="card-text">Wind:</p>
+                                <p class="card-text">Humidity:</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
     <script src="assets/js/script.js"></script>
 </body>
+
 </html>
