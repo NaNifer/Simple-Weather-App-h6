@@ -5,24 +5,41 @@
 // UV index with a color that indicates whether the conditions are favorable, moderate, or severe
 
 
-
+let city = "oakland"
 function getApi() {
     const APIkey = "1954d330fe9f2fbee8fe2fbda687fcb7"
-    let city = "oakland"
-    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIkey}`;
+    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIkey}`;
   
     fetch(requestUrl)
-        .then(function (response) {
-            return response.json();
-        })
+    .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("NETWORK RESPONSE ERROR");
+        }
+      })
         .then(function (data) {
-            console.log(data)
+            console.log(data);
+            displayWeather(data);
         })
+        .catch((error) => console.error("FETCH ERROR:", error));
   }
   
   getApi();
+
+  function displayWeather(data) {
+    const tempNow = Math.round(data.main.temp);
+    const tempNowEl = document.getElementById("tempNow");
+    tempNowEl.innerHTML = "Tempurature:" + tempNow;
+    const humidNow = data.main.humidity;
+    const humidNowEl = document.getElementById("humidNow");
+    humidNowEl.innerHTML = "Humidity:" + humidNow;
+    const cityNow = data.name;
+    const cityNowEl = document.getElementById("cityNow");
+    cityNowEl.innerHTML = cityNow;
+  }   
   
-  
+ 
   
   
   // weather icon
