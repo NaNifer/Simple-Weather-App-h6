@@ -4,6 +4,22 @@
 // the temperature, the wind speed, and the humidity
 // UV index with a color that indicates whether the conditions are favorable, moderate, or severe
 
+// Add date to doc
+
+function addDate() {
+  let today = moment().format("l");
+  let dateTodayEl = document.getElementById("dateToday");
+  dateTodayEl.innerHTML = today;
+  let forcastDateEl = document.querySelectorAll("#forcast-date");
+  for (var i = 0; i < forcastDateEl.length; i++) {
+
+    forcastDateEl = moment().format("[today] l").add('days', [i]);
+  }
+}
+
+addDate();
+
+
 
 let city = "new orleans"
 function getCity() {
@@ -16,52 +32,52 @@ function getCity() {
     })
     .then(function (data) {
       console.log(data);
-      getWeather(data) 
+      getWeather(data)
 
     })
-  }
+}
 
-  function getWeather(data) {
-    console.log(data);
-    let lat = data[0].lat;
-    let long = data[0].lon;
-    var requestUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${onecallAPIkey}`;
+function getWeather(data) {
+  console.log(data);
+  let lat = data[0].lat;
+  let long = data[0].lon;
+  var requestUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${onecallAPIkey}`;
 
-    fetch(requestUrl)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-      })
-      .then(function (data) {
-        console.log(data);
-        displayWeather(data);
-      })
-  }
+  fetch(requestUrl)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .then(function (data) {
+      console.log(data);
+      displayWeather(data);
+    })
+}
 
 getCity();
 
-  function displayWeather(data) {
-    
-    const tempNow = Math.round(data.current.temp);
-    const tempNowEl = document.getElementById("tempNow");
-    tempNowEl.innerHTML = "Tempurature: " + tempNow;
+function displayWeather(data) {
 
-    const humidNow = data.current.humidity;
-    const humidNowEl = document.getElementById("humidNow");
-    humidNowEl.innerHTML = "Humidity: " + humidNow;
+  const tempNow = Math.round(data.current.temp);
+  const tempNowEl = document.getElementById("tempNow");
+  tempNowEl.innerHTML = "Tempurature: " + tempNow;
 
-    const windNow = data.current.wind_speed;
-    const windNowEl = document.getElementById("windNow");
-    windNowEl.innerHTML = "Wind Speed: " + windNow;
+  const humidNow = data.current.humidity;
+  const humidNowEl = document.getElementById("humidNow");
+  humidNowEl.innerHTML = "Humidity: " + humidNow;
 
-    const uvNow = data.current.uvi;
-    const uvNowEl = document.getElementById("uvNow");
-    uvNowEl.innerHTML = "UV Index: " + uvNow;
+  const windNow = data.current.wind_speed;
+  const windNowEl = document.getElementById("windNow");
+  windNowEl.innerHTML = "Wind Speed: " + windNow;
 
-// Display 5 Day
+  const uvNow = data.current.uvi;
+  const uvNowEl = document.getElementById("uvNow");
+  uvNowEl.innerHTML = "UV Index: " + uvNow;
 
-  }
+  // Display 5 Day
+
+}
 
 
 
