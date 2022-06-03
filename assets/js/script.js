@@ -5,10 +5,8 @@
 // UV index with a color that indicates whether the conditions are favorable, moderate, or severe
 
 
-let city = "oakland"
+let city = "new orleans"
 function getCity() {
-  let lat = 30.489772
-  let long = -99.771335
   let requestGeo = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${directAPIkey}`;
   fetch(requestGeo)
     .then((response) => {
@@ -18,16 +16,16 @@ function getCity() {
     })
     .then(function (data) {
       console.log(data);
-      let lat = data[0].lat;
-      let long = data[0].lon;
+      getWeather(data) 
+
     })
   }
 
-  function getWeather() {
-    let lat = 30.489772;
-    let long = -99.771335;
+  function getWeather(data) {
+    console.log(data);
+    let lat = data[0].lat;
+    let long = data[0].lon;
     var requestUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${onecallAPIkey}`;
-    getCity(lat, long);
 
     fetch(requestUrl)
       .then((response) => {
@@ -41,21 +39,28 @@ function getCity() {
       })
   }
 
-  getWeather();
+getCity();
 
   function displayWeather(data) {
     
     const tempNow = Math.round(data.current.temp);
     const tempNowEl = document.getElementById("tempNow");
-    tempNowEl.innerHTML = "Tempurature:" + tempNow;
+    tempNowEl.innerHTML = "Tempurature: " + tempNow;
 
     const humidNow = data.current.humidity;
     const humidNowEl = document.getElementById("humidNow");
-    humidNowEl.innerHTML = "Humidity:" + humidNow;
+    humidNowEl.innerHTML = "Humidity: " + humidNow;
 
-    const cityNow = data.name;
-    const cityNowEl = document.getElementById("cityNow");
-    cityNowEl.innerHTML = cityNow;
+    const windNow = data.current.wind_speed;
+    const windNowEl = document.getElementById("windNow");
+    windNowEl.innerHTML = "Wind Speed: " + windNow;
+
+    const uvNow = data.current.uvi;
+    const uvNowEl = document.getElementById("uvNow");
+    uvNowEl.innerHTML = "UV Index: " + uvNow;
+
+// Display 5 Day
+
   }
 
 
