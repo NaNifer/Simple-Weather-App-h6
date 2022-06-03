@@ -78,18 +78,25 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
-
-To see how you can add code snippets, see below:
+My tutor, Trinh Nguyen, showed me this how to insert a block of code dynamically, though adding raw html (string) to the html page and using the backtick shortcuts.
 
 ```html
 <h1>Some HTML code I'm proud of</h1>
 ```
 
 ```css
-.proud-of-this-css {
-  color: papayawhip;
-}
+let card = `
+    <div id="Forcast-card" class="card text-bg-info mb-3">
+        <div class="forcast-date" class="card-header">${dateVal}</div>
+        <div class="card-body">
+            <div>WEATHER ICON HERE</div>
+            <p id="forcast-temp" class="card-title">Temp: ${temp}</p>
+            <p id="forcast-wind" class="card-text">Wind:</p>
+            <p id="forcast-humidity" class="card-text">Humidity:</p>
+        </div>
+    </div>
+    `
+    divContainer.innerHTML += card
 ```
 
 If you want more help with writing markdown, check out [The Markdown Guide](https://www.markdownguide.org/) to learn more.

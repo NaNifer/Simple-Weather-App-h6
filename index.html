@@ -20,10 +20,10 @@
         <div class="row">
             <aside class="col-sm-3 justify-content-center">
                 <h4 class="justify-content-center"> Search for a US City</h4>
-                <form>
-                    <label for="city">City:</label><br>
+                <form id="form">
+                    <label id="cityLabel">City:</label><br>
                     <input type="text" id="city" name="city"><br>
-                    <input type="button" value="Search">
+                    <input type="button" onclick="getCity()" value="Search">
                 </form>
                 <hr>
                 <ul class="previous-cities">
@@ -35,16 +35,17 @@
                 <div class="row">
                     <h4 id="cityNow">Name of city</h4>
                     <h5 id="dateToday">Date</h5>
+                    <img id="currentIcon"></img>
                     <h5 id="tempNow">Temp:</h5>
                     <h5 id="windNow">Wind:</h5>
                     <h5 id="humidNow">Humidity:</h5>
                     <h5 id="uvNow">UV Index:</h5>
                 </div>
                 <h4 class="text-center">5 Day Forcast</h4>
-                <div class="row justify-content-evenly">
-                    <div class="col-md-2">
+                <div class="row justify-content-evenly" id="fiveDayContainer">
+                    <!-- <div class="col-md-2">
                         <div id="Forcast-card" class="card text-bg-info mb-3">
-                            <div id="forcast-date" class="card-header">DATE</div>
+                            <div class="forcast-date" class="card-header">DATE</div>
                             <div class="card-body">
                                 <div>WEATHER ICON HERE</div>
                                 <p id="forcast-temp" class="card-title">Temp:</p>
@@ -55,7 +56,7 @@
                     </div>
                     <div class="col-md-2">
                         <div id="Forcast-card" class="card text-bg-info mb-3">
-                            <div id="forcast-date" class="card-header">DATE</div>
+                            <div class="forcast-date" class="card-header">DATE</div>
                             <div class="card-body">
                                 <div>WEATHER ICON HERE</div>
                                 <p id="forcast-temp" class="card-title">Temp:</p>
@@ -66,7 +67,7 @@
                     </div>
                     <div class="col-md-2">
                         <div id="Forcast-card" class="card text-bg-info mb-3">
-                            <div id="forcast-date" class="card-header">DATE</div>
+                            <div class="forcast-date" class="card-header">DATE</div>
                             <div class="card-body">
                                 <div>WEATHER ICON HERE</div>
                                 <p id="forcast-temp" class="card-title">Temp:</p>
@@ -77,7 +78,7 @@
                     </div>
                     <div class="col-md-2">
                         <div id="Forcast-card" class="card text-bg-info mb-3">
-                            <div id="forcast-date" class="card-header">DATE</div>
+                            <div class="forcast-date" class="card-header">DATE</div>
                             <div class="card-body">
                                 <div>WEATHER ICON HERE</div>
                                 <p id="forcast-temp" class="card-title">Temp:</p>
@@ -88,7 +89,7 @@
                     </div>
                     <div class="col-md-2">
                         <div id="Forcast-card" class="card text-bg-info mb-3">
-                            <div id="forcast-date" class="card-header">DATE</div>
+                            <div class="forcast-date" class="card-header">DATE</div>
                             <div class="card-body">
                                 <div>WEATHER ICON HERE</div>
                                 <p id="forcast-temp" class="card-title">Temp:</p>
@@ -96,7 +97,7 @@
                                 <p id="forcast-humidity" class="card-text">Humidity:</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

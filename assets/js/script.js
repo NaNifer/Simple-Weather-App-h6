@@ -4,25 +4,49 @@
 // the temperature, the wind speed, and the humidity
 // UV index with a color that indicates whether the conditions are favorable, moderate, or severe
 
-// Add date to doc
-
-function addDate() {
+// Adds dates and data to doc 
+function addDate(data) {
   let today = moment().format("l");
   let dateTodayEl = document.getElementById("dateToday");
   dateTodayEl.innerHTML = today;
-  let forcastDateEl = document.querySelectorAll("#forcast-date");
-  for (var i = 0; i < forcastDateEl.length; i++) {
 
-    forcastDateEl = moment().format("[today] l").add('days', [i]);
+  // Creates container for Forcast Weather
+  let fiveDayContainer = document.getElementById("fiveDayContainer")
+
+  for (let i = 0; i < 5; i++) {
+    let divContainer = document.createElement("div")
+    divContainer.classList.add("col-md-2")
+
+    let dateVal = moment().add(i + 1, "days").format("l");
+    let temp = Math.round(data.daily[i].temp.day);
+    let humidity = data.daily[i].humidity;
+    let wind = data.daily[i].wind_speed;
+    let iconcode = data.daily[i].weather[0].icon;
+    let iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+    console.log(data.daily[i].weather[0].icon);
+    let card = `
+    <div id="Forcast-card" class="card text-bg-info mb-3">
+        <div class="forcast-date" class="card-header">${dateVal}</div>
+        <div class="card-body">
+            <img id="icon" class="icon" src="${iconurl}"></img>
+            <p id="forcast-temp" class="card-title">Temp: ${temp}</p>
+            <p id="forcast-wind" class="card-text">Wind: ${wind}</p>
+            <p id="forcast-humidity" class="card-text">Humidity: ${humidity}</p>
+        </div>
+    </div>
+    `
+    divContainer.innerHTML += card
+    fiveDayContainer.appendChild(divContainer);
+
   }
+
 }
 
-addDate();
-
-
-
-let city = "new orleans"
+// Use geocode to get long & lat
 function getCity() {
+  let city = document.getElementById('city').value;
+  document.getElementById('cityNow').innerHTML = city.toUpperCase();
+  console.log(city)
   let requestGeo = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${directAPIkey}`;
   fetch(requestGeo)
     .then((response) => {
@@ -33,10 +57,12 @@ function getCity() {
     .then(function (data) {
       console.log(data);
       getWeather(data)
-
     })
 }
 
+
+
+// Gets weather data and calls on displayCurrentWeather()
 function getWeather(data) {
   console.log(data);
   let lat = data[0].lat;
@@ -51,13 +77,13 @@ function getWeather(data) {
     })
     .then(function (data) {
       console.log(data);
-      displayWeather(data);
+      addDate(data);
+      displayCurrentWeather(data);
     })
 }
 
-getCity();
-
-function displayWeather(data) {
+// Displays current weather
+function displayCurrentWeather(data) {
 
   const tempNow = Math.round(data.current.temp);
   const tempNowEl = document.getElementById("tempNow");
@@ -75,13 +101,12 @@ function displayWeather(data) {
   const uvNowEl = document.getElementById("uvNow");
   uvNowEl.innerHTML = "UV Index: " + uvNow;
 
-  // Display 5 Day
+  let iconcode = data.current.weather[0].icon;
+  let iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+
+  var currentIconEl = document.getElementById("currentIcon");
+  currentIconEl.src = iconurl;
+  currentIconEl.width = "20";
+
 
 }
-
-
-
-
-  // weather icon
-  // var iconcode = a.weather[0].icon;
-  // var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
