@@ -8,31 +8,33 @@
     <title>Simple Weather App - Search for Weather in any US city</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <style src="assets/css/style.css"></style>
+    <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
 <body>
     <header class="container-fluid">
         <h1 class="row nav justify-content-center bg-warning">US Weather Dashboard</h1>
     </header>
-
+    <!-- Search Box for City -->
     <div class="container-fluid">
         <div class="row">
             <aside class="col-sm-3 justify-content-center">
-                <h4 class="justify-content-center"> Search for a US City</h4>
+                <h4 class="justify-content-center asideStyle"> Search for a US City</h4>
                 <form id="form">
                     <label id="cityLabel">City:</label><br>
                     <input type="text" id="city" name="city"><br>
-                    <input type="button" onclick="getCity()" value="Search">
+                    <button id="searchButton" class="btn btn-block btn-info" type="button" onclick=""
+                        value="Search">Search</button>
                 </form>
-                <hr>
-                <ul class="previous-cities">
-
-                </ul>
+                <hr />
+                <div id="previous-cities">
+                    <!-- Inserts cities here dynamically -->
+                </div>
             </aside>
 
-            <div class="col-sm-9">
-                <div class="row">
+            <!-- Weather Now -->
+            <div id="weatherData" class="col-sm-9">
+                <div class="row stylebox">
                     <h4 id="cityNow">Name of city</h4>
                     <h5 id="dateToday">Date</h5>
                     <img id="currentIcon"></img>
@@ -41,72 +43,13 @@
                     <h5 id="humidNow">Humidity:</h5>
                     <h5 id="uvNow">UV Index:</h5>
                 </div>
+                <!-- Forcast Weather -->
                 <h4 class="text-center">5 Day Forcast</h4>
                 <div class="row justify-content-evenly" id="fiveDayContainer">
-                    <!-- <div class="col-md-2">
-                        <div id="Forcast-card" class="card text-bg-info mb-3">
-                            <div class="forcast-date" class="card-header">DATE</div>
-                            <div class="card-body">
-                                <div>WEATHER ICON HERE</div>
-                                <p id="forcast-temp" class="card-title">Temp:</p>
-                                <p id="forcast-wind" class="card-text">Wind:</p>
-                                <p id="forcast-humidity" class="card-text">Humidity:</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div id="Forcast-card" class="card text-bg-info mb-3">
-                            <div class="forcast-date" class="card-header">DATE</div>
-                            <div class="card-body">
-                                <div>WEATHER ICON HERE</div>
-                                <p id="forcast-temp" class="card-title">Temp:</p>
-                                <p id="forcast-wind" class="card-text">Wind:</p>
-                                <p id="forcast-humidity" class="card-text">Humidity:</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div id="Forcast-card" class="card text-bg-info mb-3">
-                            <div class="forcast-date" class="card-header">DATE</div>
-                            <div class="card-body">
-                                <div>WEATHER ICON HERE</div>
-                                <p id="forcast-temp" class="card-title">Temp:</p>
-                                <p id="forcast-wind" class="card-text">Wind:</p>
-                                <p id="forcast-humidity" class="card-text">Humidity:</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div id="Forcast-card" class="card text-bg-info mb-3">
-                            <div class="forcast-date" class="card-header">DATE</div>
-                            <div class="card-body">
-                                <div>WEATHER ICON HERE</div>
-                                <p id="forcast-temp" class="card-title">Temp:</p>
-                                <p id="forcast-wind" class="card-text">Wind:</p>
-                                <p id="forcast-humidity" class="card-text">Humidity:</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div id="Forcast-card" class="card text-bg-info mb-3">
-                            <div class="forcast-date" class="card-header">DATE</div>
-                            <div class="card-body">
-                                <div>WEATHER ICON HERE</div>
-                                <p id="forcast-temp" class="card-title">Temp:</p>
-                                <p id="forcast-wind" class="card-text">Wind:</p>
-                                <p id="forcast-humidity" class="card-text">Humidity:</p>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"

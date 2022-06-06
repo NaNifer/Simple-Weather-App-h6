@@ -1,0 +1,53 @@
+.stylebox {
+    border-style: solid;
+    border-color: lightsteelblue;
+    margin: 20px;
+    border-radius: 5px;
+    background-color: lightcyan;
+    box-shadow: 5px 5px 5px lightsteelblue;
+}
+
+#cityNow, #dateToday {
+    font-weight: bolder;
+}
+
+#Forcast-card {
+    box-shadow: 5px 5px 5px lightblue;
+}
+
+button {
+    width: 200px;
+    margin-top: 20px;
+}
+
+aside,h4 {
+    margin-top: 20px;
+}
+
+.UVstyle.green {
+    background-color: limegreen;
+    border-color: darkgreen;
+    display: inline-block;
+}
+
+.UVstyle.yellow {
+    background-color: yellow;
+    border-color: darkgoldenrod;
+    display: inline-block;
+}
+
+.UVstyle.orange {
+    background-color: orange;
+    border-color: darkorange;
+    display: inline-block;
+}
+
+.UVstyle.red {
+    background-color: fuchsia;
+    border-color: darkred;
+    display: inline-block;
+}
+
+.cityButton {
+    background-color: steelblue;
+}
