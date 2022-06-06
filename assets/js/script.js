@@ -1,25 +1,49 @@
 const beginBtn = document.getElementById("searchButton");
 const form = document.getElementById('form');
-
-beginBtn.addEventListener("click", getCity);
-form.addEventListener("submit", getCity);
-
-
 const weatherDataEl = document.getElementById("weatherData");
+
+beginBtn.addEventListener("click", cityClickHandler);
+form.addEventListener("submit", cityClickHandler);
+// city.addEventListener("submit", cityClickHandler);
+
 weatherDataEl.style.display = "none";
 
+// Add function to display buttons onload
 
-// *******This function does 2 things, separate the concerns*****
+// *******This function does 2 things, separate the conacerns*****
 // THEN, i can work on history button click listener function
+
+
+function cityClickHandler(event) {
+  event.preventDefault();
+  console.log(event, "28");
+  let city = document.getElementById('city').innerHTML;
+
+  document.getElementById('cityNow').innerHTML = city;
+  console.log(city);
+  getCity(city);
+
+}
+
+
+
+// Click listener for previousCitiesEl buttons
+
+// $('.cityButton').on("click", function (event) {
+//   let searchCity = event.target.textContent
+// var keyName = $(this).siblings('.entryHere').attr('id');
+// var textValue = $(this).siblings('.entryHere').val();
+// cityClickHandler(data)
+// })
+
+
 
 
 
 // Use geocode to get long & lat
-function getCity(event) {
+function getCity(city) {
   event.preventDefault();
 
-  let city = document.getElementById('city').value;
-  document.getElementById('cityNow').innerHTML = city.toUpperCase();
   let requestGeo = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${directAPIkey}`;
 
   fetch(requestGeo)
@@ -177,17 +201,4 @@ function displayStorage(historyCities) {
     previousCitiesEl.appendChild(previousCity);
   }
 }
-
-// Click listener for previousCitiesEl buttons
-
-
-
-$('.cityButton').on("click", function (event) {
-
-
-  let searchCity = event.target.textContent
-  var keyName = $(this).siblings('.entryHere').attr('id');
-  var textValue = $(this).siblings('.entryHere').val();
-  displayCurrentWeather(data)
-})
 
