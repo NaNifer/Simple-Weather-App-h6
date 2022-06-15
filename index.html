@@ -18,9 +18,10 @@
     <!-- Search Box for City -->
     <div class="container-fluid">
         <div class="row">
-            <aside class="col-sm-3 justify-content-center">
+            <aside id="aside" class="col-sm-3 justify-content-center">
                 <h4 class="justify-content-center asideStyle"> Search for a US City</h4>
-                <form id="form">
+
+                <form name="city-input" id="form" onsubmit="return validateForm(event)" method="post">
                     <label id="cityLabel">City:</label><br>
                     <input type="text" id="city" name="city"><br>
                     <button id="searchButton" class="btn btn-block btn-info" type="button" onclick=""

@@ -1,29 +1,10 @@
-const beginBtn = document.getElementById("searchButton");
-const form = document.getElementById('form');
 const weatherDataEl = document.getElementById("weatherData");
-
-beginBtn.addEventListener("click", cityClickHandler);
-form.addEventListener("submit", cityClickHandler);
-// city.addEventListener("submit", cityClickHandler);
+let historyCities = JSON.parse(localStorage.getItem("inputCity"));
 
 weatherDataEl.style.display = "none";
 
-// Add function to display buttons onload
+window.onload = displayStorage();
 
-// *******This function does 2 things, separate the conacerns*****
-// THEN, i can work on history button click listener function
-
-
-function cityClickHandler(event) {
-  event.preventDefault();
-  console.log(event, "28");
-  let city = document.getElementById('city').innerHTML;
-
-  document.getElementById('cityNow').innerHTML = city;
-  console.log(city);
-  getCity(city);
-
-}
 
 
 
@@ -40,10 +21,19 @@ function cityClickHandler(event) {
 
 
 
+function validateForm(event) {
+  event.preventDefault();
+  let city = document.forms["city-input"]["city"].value.toUpperCase();
+  if (city == "") {
+    alert("Please enter a city.");
+    return false;
+  }
+  getCity(city);
+  // document.getElementById("form").reset();
+}
+
 // Use geocode to get long & lat
 function getCity(city) {
-  event.preventDefault();
-
   let requestGeo = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${directAPIkey}`;
 
   fetch(requestGeo)
@@ -57,18 +47,17 @@ function getCity(city) {
         showError();
         return;
       }
-      getWeather(data);
+      getWeather(city, data);
       toStorage(city);
     })
 }
-
 function showError() {
   alert("Not a valid city, please try again.")
 }
 
 
 // Gets weather data and calls on displayCurrentWeather()
-function getWeather(data) {
+function getWeather(city, data) {
   let lat = data[0].lat;
   let long = data[0].lon;
   var requestUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${onecallAPIkey}`;
@@ -80,52 +69,15 @@ function getWeather(data) {
       }
     })
     .then(function (data) {
-      addInfo(data);
-      displayCurrentWeather(data);
+      addInfo(city, data);
+      displayCurrentWeather(city, data);
     })
 }
 
-// Adds dates and data to doc 
-function addInfo(data) {
-  weatherDataEl.style.display = "block";
-  let today = moment().format("l");
-  let dateTodayEl = document.getElementById("dateToday");
-  dateTodayEl.innerHTML = today;
-
-  // Creates container for Forcast Weather
-  let fiveDayContainer = document.getElementById("fiveDayContainer")
-
-  while (fiveDayContainer.firstChild) {
-    fiveDayContainer.removeChild(fiveDayContainer.firstChild);
-  }
-  for (let i = 0; i < 5; i++) {
-    let divContainer = document.createElement("div")
-    divContainer.classList.add("col-md-2")
-
-    let dateVal = moment().add(i + 1, "days").format("l");
-    let temp = Math.round(data.daily[i].temp.day);
-    let humidity = data.daily[i].humidity;
-    let wind = data.daily[i].wind_speed;
-    let iconcode = data.daily[i].weather[0].icon;
-    let iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
-    let card = `
-    <div id="Forcast-card" class="card text-bg-info mb-3">
-        <div class="forcast-date" class="card-header">${dateVal}</div>
-        <div class="card-body">
-            <img id="icon" class="icon" src="${iconurl}"></img>
-            <p id="forcast-temp" class="card-title">Temp: ${temp + "°F"}</p>
-            <p id="forcast-wind" class="card-text">Wind: ${wind}</p>
-            <p id="forcast-humidity" class="card-text">Humidity: ${humidity}</p>
-        </div>
-    </div>
-    `
-    divContainer.innerHTML += card
-    fiveDayContainer.appendChild(divContainer);
-  }
-}
-
 // Displays current weather
-function displayCurrentWeather(data) {
+function displayCurrentWeather(city, data) {
+  document.getElementById('cityNow').innerHTML = city;
+
 
   const tempNow = Math.round(data.current.temp);
   const tempNowEl = document.getElementById("tempNow");
@@ -169,9 +121,50 @@ function displayCurrentWeather(data) {
   }
 }
 
+
+// Adds dates and forcast data to doc 
+function addInfo(data) {
+  weatherDataEl.style.display = "block";
+  let today = moment().format("l");
+  let dateTodayEl = document.getElementById("dateToday");
+  dateTodayEl.innerHTML = today;
+
+  // Creates container for Forcast Weather
+  let fiveDayContainer = document.getElementById("fiveDayContainer")
+
+  while (fiveDayContainer.firstChild) {
+    fiveDayContainer.removeChild(fiveDayContainer.firstChild);
+  }
+  for (let i = 0; i < 5; i++) {
+    let divContainer = document.createElement("div")
+    divContainer.classList.add("col-md-2")
+
+    let dateVal = moment().add(i + 1, "days").format("l");
+    let temp = Math.round(data.daily[i].temp.day);
+    let humidity = data.daily[i].humidity;
+    let wind = data.daily[i].wind_speed;
+    let iconcode = data.daily[i].weather[0].icon;
+    let iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+    let card = `
+    <div id="Forcast-card" class="card text-bg-info mb-3">
+        <div class="forcast-date" class="card-header">${dateVal}</div>
+        <div class="card-body">
+            <img id="icon" class="icon" src="${iconurl}"></img>
+            <p id="forcast-temp" class="card-title">Temp: ${temp + "°F"}</p>
+            <p id="forcast-wind" class="card-text">Wind: ${wind}</p>
+            <p id="forcast-humidity" class="card-text">Humidity: ${humidity}</p>
+        </div>
+    </div>
+    `
+    divContainer.innerHTML += card
+    fiveDayContainer.appendChild(divContainer);
+  }
+}
+
+
+
 // // Puts city in local storage
 function toStorage(city) {
-  let historyCities = JSON.parse(localStorage.getItem("inputCity"));
   if (historyCities === null) {
     historyCities = [city];
   }
@@ -188,7 +181,7 @@ function toStorage(city) {
 }
 
 
-// Displays history of cities called in a button
+// Displays history of cities called in the aside as a button
 function displayStorage(historyCities) {
   let previousCitiesEl = document.getElementById("previous-cities");
   while (previousCitiesEl.firstChild) {
