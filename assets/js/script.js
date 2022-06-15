@@ -1,4 +1,5 @@
 const weatherDataEl = document.getElementById("weatherData");
+
 let historyCities = JSON.parse(localStorage.getItem("inputCity"));
 
 weatherDataEl.style.display = "none";
@@ -162,9 +163,10 @@ function addInfo(data) {
 }
 
 
+console.log(historyCities);
 
 // // Puts city in local storage
-function toStorage(city) {
+function toStorage(city) {  
   if (historyCities === null) {
     historyCities = [city];
   }
@@ -183,6 +185,8 @@ function toStorage(city) {
 
 // Displays history of cities called in the aside as a button
 function displayStorage(historyCities) {
+  console.log(historyCities);
+
   let previousCitiesEl = document.getElementById("previous-cities");
   while (previousCitiesEl.firstChild) {
     previousCitiesEl.removeChild(previousCitiesEl.firstChild);
