@@ -163,12 +163,12 @@ function toStorage(city) {
     historyCities.unshift(city);
   }
   localStorage.setItem("inputCity", JSON.stringify(historyCities));
-  displayStorage(historyCities);
+  displayStorage();
 }
 
 // // Creates buttons in aside, and inputs the stored city name in each button
-function displayStorage(historyCities) {
-  historyCities = JSON.parse(localStorage.getItem("inputCity"));
+function displayStorage() {
+  let historyCities = JSON.parse(localStorage.getItem("inputCity")) || [];
   let previousCitiesEl = document.getElementById("previous-cities");
 
   while (previousCitiesEl.firstChild) {
@@ -177,20 +177,11 @@ function displayStorage(historyCities) {
   for (let i = 0; i < 10 && i < historyCities.length; i++) {
     let previousCity = document.createElement("button");
     previousCity.classList.add("cityButton", "btn", "btn-info");
-    previousCity.textContent = (historyCities[i]);
+    previousCity.textContent = historyCities[i];
     previousCitiesEl.appendChild(previousCity);
+
+    previousCity.addEventListener("click", function () {
+      getCity(historyCities[i]);
+    });
   }
 }
-
-
-
-// Click listener for previousCitiesEl buttons
-
-previousCity.on("click", function () {
-  getWeather(previousCity.text());
-});
-
-// $("#previous-cities").on("click", "button", function (event) {
-//   let buttonEl = event.target
-//   getWeather(buttonEl);
-// });
