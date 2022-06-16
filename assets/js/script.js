@@ -186,14 +186,11 @@ function displayStorage(historyCities) {
 
 // Click listener for previousCitiesEl buttons
 
-// $('.cityButton').on("click", function (event) {
-//   let searchCity = event.target.textContent
-// var keyName = $(this).siblings('.entryHere').attr('id');
-// var textValue = $(this).siblings('.entryHere').val();
-// cityClickHandler(data)
-// })
-
-
-cityButton.on("click", function () {
-  getWeather(cityButton.text());
+previousCity.on("click", function () {
+  getWeather(previousCity.text());
 });
+
+// $("#previous-cities").on("click", "button", function (event) {
+//   let buttonEl = event.target
+//   getWeather(buttonEl);
+// });

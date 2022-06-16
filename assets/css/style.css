@@ -3,11 +3,18 @@
     border-color: lightsteelblue;
     margin: 20px;
     border-radius: 5px;
-    background-color: lightcyan;
+    background-color: rgb(224, 249, 255);
     box-shadow: 5px 5px 5px lightsteelblue;
 }
 
-#cityNow, #dateToday {
+.title-custom {
+    background-image: linear-gradient(to right, steelblue, midnightblue);
+    color: white;
+    height: 52px;
+}
+
+#cityNow,
+#dateToday {
     font-weight: bolder;
 }
 
@@ -20,7 +27,8 @@ button {
     margin-top: 20px;
 }
 
-aside,h4 {
+aside,
+h4 {
     margin-top: 20px;
 }
 
@@ -50,4 +58,38 @@ aside,h4 {
 
 .cityButton {
     background-color: steelblue;
+}
+
+
+/* MEDIA QUERY - responsive until breakpoint needed for small smartphone */
+
+
+/* Small smartphones */
+
+@media screen and (max-width: 576px) {
+    #previous-cities {
+        display: inline-block;
+    }
+
+    .cityButton {
+        width: 100px;
+        margin-top: 10px;
+        margin-right: 5px;
+        font-size: x-small;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #previous-cities {
+        display: inline-block;
+    }
+
+    .cityButton {
+        margin-top: 10px;
+        margin-right: 5px;
+    }
+
+    #weatherData {
+        margin-left: 50px;
+    }
 }
