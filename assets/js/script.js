@@ -20,7 +20,7 @@ function validateForm(event) {
 
 // Inputs user's city into geocode API to get long & lat, sends it to API call getWeather() & send city to toStorage()
 function getCity(city) {
-  let requestGeo = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${directAPIkey}`;
+  let requestGeo = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${directAPIkey}`;
 
   fetch(requestGeo)
     .then((response) => {
