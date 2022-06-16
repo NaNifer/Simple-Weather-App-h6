@@ -87,7 +87,7 @@ function displayCurrentWeather(city, data) {
   uvBox.classList.add("UVstyle");
 
   let iconcode = data.current.weather[0].icon;
-  let iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+  let iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
 
   var currentIconEl = document.getElementById("currentIcon");
   currentIconEl.src = iconurl;
