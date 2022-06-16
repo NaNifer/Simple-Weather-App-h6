@@ -1,27 +1,12 @@
+// Global variable for main section, hides it on page load, and displays search history
 const weatherDataEl = document.getElementById("weatherData");
-
-let historyCities = JSON.parse(localStorage.getItem("inputCity"));
-
 weatherDataEl.style.display = "none";
-
 window.onload = displayStorage();
 
 
 
 
-// Click listener for previousCitiesEl buttons
-
-// $('.cityButton').on("click", function (event) {
-//   let searchCity = event.target.textContent
-// var keyName = $(this).siblings('.entryHere').attr('id');
-// var textValue = $(this).siblings('.entryHere').val();
-// cityClickHandler(data)
-// })
-
-
-
-
-
+// When user enters in city, changes to uppercase, calls on getCity()
 function validateForm(event) {
   event.preventDefault();
   let city = document.forms["city-input"]["city"].value.toUpperCase();
@@ -30,10 +15,10 @@ function validateForm(event) {
     return false;
   }
   getCity(city);
-  // document.getElementById("form").reset();
+  document.getElementById("form").reset();
 }
 
-// Use geocode to get long & lat
+// Inputs user's city into geocode API to get long & lat, sends it to API call getWeather() & send city to toStorage()
 function getCity(city) {
   let requestGeo = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${directAPIkey}`;
 
@@ -52,12 +37,14 @@ function getCity(city) {
       toStorage(city);
     })
 }
+
+// Error message for improper user entry
 function showError() {
   alert("Not a valid city, please try again.")
 }
 
 
-// Gets weather data and calls on displayCurrentWeather()
+// Gets weather data and send city & data to displayCurrentWeather()
 function getWeather(city, data) {
   let lat = data[0].lat;
   let long = data[0].lon;
@@ -75,10 +62,9 @@ function getWeather(city, data) {
     })
 }
 
-// Displays current weather
+// Displays current weather in top div by creating elements and inputing from data array sent
 function displayCurrentWeather(city, data) {
   document.getElementById('cityNow').innerHTML = city;
-
 
   const tempNow = Math.round(data.current.temp);
   const tempNowEl = document.getElementById("tempNow");
@@ -107,7 +93,7 @@ function displayCurrentWeather(city, data) {
   currentIconEl.src = iconurl;
   currentIconEl.style.width = "100px";
 
-  // Displays color for UV index
+  // Adds color class for UV index
   if (uvNow <= 2) {
     uvBox.classList.add("green");
   }
@@ -122,9 +108,8 @@ function displayCurrentWeather(city, data) {
   }
 }
 
-
-// Adds dates and forcast data to doc 
-function addInfo(data) {
+// Creates forcast weather elements, adds data and date
+function addInfo(city, data) {
   weatherDataEl.style.display = "block";
   let today = moment().format("l");
   let dateTodayEl = document.getElementById("dateToday");
@@ -162,11 +147,10 @@ function addInfo(data) {
   }
 }
 
+// // user's city is put into local storage, most recent first, calls on displayStorage()
+function toStorage(city) {
+  let historyCities = JSON.parse(localStorage.getItem("inputCity"));
 
-console.log(historyCities);
-
-// // Puts city in local storage
-function toStorage(city) {  
   if (historyCities === null) {
     historyCities = [city];
   }
@@ -182,12 +166,11 @@ function toStorage(city) {
   displayStorage(historyCities);
 }
 
-
-// Displays history of cities called in the aside as a button
+// // Creates buttons in aside, and inputs the stored city name in each button
 function displayStorage(historyCities) {
-  console.log(historyCities);
-
+  historyCities = JSON.parse(localStorage.getItem("inputCity"));
   let previousCitiesEl = document.getElementById("previous-cities");
+
   while (previousCitiesEl.firstChild) {
     previousCitiesEl.removeChild(previousCitiesEl.firstChild);
   }
@@ -199,3 +182,18 @@ function displayStorage(historyCities) {
   }
 }
 
+
+
+// Click listener for previousCitiesEl buttons
+
+// $('.cityButton').on("click", function (event) {
+//   let searchCity = event.target.textContent
+// var keyName = $(this).siblings('.entryHere').attr('id');
+// var textValue = $(this).siblings('.entryHere').val();
+// cityClickHandler(data)
+// })
+
+
+cityButton.on("click", function () {
+  getWeather(cityButton.text());
+});
