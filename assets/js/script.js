@@ -1,11 +1,14 @@
+console.log(1);
 // Global variable for main section, hides it on page load, and displays search history
 const weatherDataEl = document.getElementById("weatherData");
 weatherDataEl.style.display = "none";
 window.onload = displayStorage();
-
-
-
-
+console.log(2);
+const searchButtonEl = document.getElementById('searchButton');
+console.log(searchButtonEl);
+searchButtonEl.addEventListener("click", function (event) {
+  console.log(event);
+});
 // When user enters in city, changes to uppercase, calls on getCity()
 function validateForm(event) {
   event.preventDefault();
