@@ -2,14 +2,18 @@
 const weatherDataEl = document.getElementById("weatherData");
 weatherDataEl.style.display = "none";
 window.onload = displayStorage();
+const searchButtonEl = document.getElementById('searchButton');
 
-
-
+searchButtonEl.addEventListener("click", function () {
+  validateForm();
+});
 
 // When user enters in city, changes to uppercase, calls on getCity()
 function validateForm(event) {
-  event.preventDefault();
-  let city = document.forms["city-input"]["city"].value.toUpperCase();
+  if (event) {
+    event.preventDefault();
+  }
+  const city = document.getElementById('city').value;
   if (city == "") {
     alert("Please enter a city.");
     return false;
