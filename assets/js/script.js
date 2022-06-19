@@ -1,9 +1,9 @@
 // Global variable for main section, hides it on page load, and displays search history
 const weatherDataEl = document.getElementById("weatherData");
-weatherDataEl.style.display = "none";
-window.onload = displayStorage();
 const searchButtonEl = document.getElementById('searchButton');
 
+weatherDataEl.style.display = "none";
+window.onload = displayStorage();
 searchButtonEl.addEventListener("click", function () {
   validateForm();
 });
@@ -13,7 +13,7 @@ function validateForm(event) {
   if (event) {
     event.preventDefault();
   }
-  const city = document.getElementById('city').value;
+  const city = document.getElementById('city').value.toUpperCase();
   if (city == "") {
     alert("Please enter a city.");
     return false;
@@ -27,7 +27,7 @@ function getCity(city) {
   let requestGeo = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${directAPIkey}`;
 
   fetch(requestGeo)
-    .then((response) => {
+    .then(response => {
       if (response.ok) {
         return response.json();
       }
@@ -55,7 +55,7 @@ function getWeather(city, data) {
   var requestUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${onecallAPIkey}`;
 
   fetch(requestUrl)
-    .then((response) => {
+    .then(response => {
       if (response.ok) {
         return response.json();
       }
@@ -82,18 +82,20 @@ function displayCurrentWeather(city, data) {
   const windNowEl = document.getElementById("windNow");
   windNowEl.innerHTML = "Wind Speed: " + windNow;
 
+  // UV elements in a box
   const uvNow = data.current.uvi;
   const uvNowEl = document.getElementById("uvNow");
+  const uvBox = document.createElement("div");
+
   uvNowEl.innerHTML = "UV Index: ";
-  let uvBox = document.createElement("div");
   uvNowEl.appendChild(uvBox);
   uvBox.innerText = + uvNow;
   uvBox.classList.add("UVstyle");
 
-  let iconcode = data.current.weather[0].icon;
-  let iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
+  const iconcode = data.current.weather[0].icon;
+  const iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
 
-  var currentIconEl = document.getElementById("currentIcon");
+  const currentIconEl = document.getElementById("currentIcon");
   currentIconEl.src = iconurl;
   currentIconEl.style.width = "100px";
 
@@ -111,6 +113,7 @@ function displayCurrentWeather(city, data) {
     uvBox.classList.add("red");
   }
 }
+
 
 // Creates forcast weather elements, adds data and date
 function addInfo(city, data) {

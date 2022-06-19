@@ -77,9 +77,7 @@ h4 {
         margin-right: 5px;
         font-size: x-small;
     }
-    .card {
-        width: 125px;
-    }
+  
 }
 
 @media screen and (max-width: 820px) {
@@ -95,11 +93,6 @@ h4 {
 
     #weatherData {
         /* margin-left: 50px; */
-    }
-
-    .card {
-        width: 119px;
-        margin-right: 2px;
     }
 
     aside {
